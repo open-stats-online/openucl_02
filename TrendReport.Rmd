@@ -1,0 +1,78 @@
+---
+output: pdf_document
+params:
+  type: ''
+  KTT_data: NA
+  plot_data: NA
+  title: ''
+  filename: ''
+---
+
+# Trend Report
+<p>&nbsp;</p>
+```{r, comment="", warning=FALSE, message=FALSE, echo=FALSE}
+cat('Report Date & Time: ', as.character(Sys.time()))
+cat('Data File Name: ', params$filename)
+cat('Report Title: ', params$title)
+```
+<p>&nbsp;</p>
+Open UCL is licensed under a Creative Commons Attribution-NonCommercial- ShareAlike 4.0 International License and is the work of T. Chambers, A. Mikov and M. Salmon. Under the license terms you are free to:
+
+**Share** — copy and redistribute the material
+in any medium or format
+
+**Adapt** — remix, transform, and build upon
+the material
+
+**Attribution** — You must give appropriate
+credit, provide a link to the license,
+and indicate if changes were made. You
+may do so in any reasonable manner, but
+not in any way that suggests the
+licensor endorses you or your use.
+
+**Non-Commercial** — You may not use the
+material for commercial purposes.
+
+**ShareAlike** — If you remix, transform, or
+build upon the material, you must distribute
+your contributions under the same license
+as the original.
+
+We encourage the reporting of bugs, issues, new ideas and contributions. If you want to report a bug, issue or have an idea to add to Open UCL you can email openstatsonline@gmail.com. Or if you are on github you can also use this link to post an issue on the Open UCL Repository.
+
+\newpage
+```{r, warning=FALSE, message=FALSE, echo=FALSE, results="asis"}
+params$KTT_data %>%
+  mutate(across(where(is.numeric), ~as.character(round(., 2)))) %>%
+  pivot_longer(cols = -c(id, analyte), names_to = 'Characteristic') %>%
+  group_split(id, analyte, .keep = FALSE) -> list_KTT
+
+# params$KSTT_data %>%
+#   pivot_longer(cols = -c(id, analyte), names_to = 'Characteristic') %>%
+#   mutate(value = round(value, 2)) %>%
+#   group_split(id, analyte, .keep = FALSE) -> list_KSTT
+```
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE, results="asis", fig.width = 8, fig.height = 8}
+for(i in seq_along(list_KTT)) {
+  cat("\n")
+  
+  
+  
+# This section creates new rows as defacto headings and then inserts to tmp table using rbind. This is a temporary workaround
+  new_row1 = c("Kendall Trend Test Results Continuous", " ")
+  new_row2 = c("Kendall Trend Test Results Seasonal", " ")
+  plot1 <- params$plot_data$plot1[[i]]
+  plot2 <- params$plot_data$plot2[[i]]
+  
+  print(knitr::kable(tibble(sprintf('      Report for ID : %s and Analyte : %s\n', params$KTT_data$id[i], params$KTT_data$analyte[i])), col.names = NULL, row.names = FALSE))
+ # print(knitr::kable(list(rbind(new_row1, list_KTT[[i]]), rbind(new_row2, #list_KSTT[[i]])), col.names = NULL))
+    print(knitr::kable(list(rbind(new_row1, list_KTT[[i]])), col.names = NULL))
+
+  grid.arrange(plot1, plot2, ncol=2,
+             heights=unit(c(10,10), c("cm", "cm")))
+  cat("\n\\newpage\n")
+}
+```
+

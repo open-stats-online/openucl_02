@@ -1,0 +1,91 @@
+---
+#title: "Open UCL Report Rev8.1"
+output: pdf_document
+params:
+  type: ''
+  data: NA
+  title: ''
+  filename: ''
+  dropdown: ''
+  my_qqplot: NA
+  my_qqplotlog: NA
+  my_boxplot: NA
+  my_hist: NA
+---
+# Open UCL Report Rev8.1 (Open UCL Beta Ver 3.02)
+<p>&nbsp;</p>
+```{r, comment="", warning=FALSE, message=FALSE, echo=FALSE}
+cat('Report Date & Time: ', as.character(Sys.time()))
+cat('Data File Name: ', params$filename)
+cat('Report Title: ',params$title)
+```
+<p>&nbsp;</p>
+Open UCL is licensed under a Creative
+Commons Attribution-NonCommercial-
+ShareAlike 4.0 International License and is
+the work of **T. Chambers, A. Mikov and M. Salmon**.
+Under the license terms you are free to:
+
+**Share** — copy and redistribute the material
+in any medium or format
+
+**Adapt** — remix, transform, and build upon
+the material
+
+**Attribution** — You must give appropriate
+credit, provide a link to the license,
+and indicate if changes were made. You
+may do so in any reasonable manner, but
+not in any way that suggests the
+licensor endorses you or your use.
+
+**Non-Commercial** — You may not use the
+material for commercial purposes.
+
+**ShareAlike** — If you remix, transform, or
+build upon the material, you must distribute
+your contributions under the same license
+as the original.
+
+We encourage the reporting of bugs,
+issues, new ideas and contributions. If
+you want to report a bug, issue or have
+an idea to add to Open UCL you can email
+**openstatsonline@gmail.com**. Or if you
+are on github you can also use this link
+**<link to be inserted>** to post an
+issue on the Open UCL Repository.
+
+
+\newpage
+```{r, warning=FALSE, message=FALSE, echo=FALSE, results="asis"}
+for(i in names(params$data)) {
+  #cat('Report for Analyte (',i,')', '\n') # This line is meant to place a page heading but on some computers the heading appers aftre the first tables in the middle of the page. Workaround is below using a Kable table
+  cat("\n")
+
+    tmp <- params$data[[i]] %>%
+            mutate(across(.fns = as.character)) %>%
+            pivot_longer(cols = everything(), names_to = 'Characteristic')
+
+# This section creates new rows as defacto headings and then inserts to tmp table using rbind. This is a temporary workaround
+  new_row1 = c("Descriptive Stats", " ")
+  new_row2 = c("Log Transformed", " ")
+  new_row3 = c("Normality Tests", " ")
+  new_row4 = c("Upper Conf Limits", " ")
+  new_row5 = c("Other Results", " ")
+
+  tmp = rbind(tmp[1, ], new_row1, tmp[- (1), ])
+  tmp = rbind(tmp[1:13, ], new_row2, tmp[- (1:13), ])
+  tmp = rbind(tmp[1:18, ], new_row3, tmp[- (1:18), ])
+  tmp = rbind(tmp[1:23, ], new_row4, tmp[- (1:23), ])
+  tmp = rbind(tmp[1:29, ], new_row5, tmp[- (1:29), ])
+
+  print(knitr::kable(list(tmp[c(1), 2]), col.names = NULL, row.names = FALSE)) #interim solution for page headings is a kable table but limited to a single value row 1 col 2 with col names = NULL and row names FALSE. Although it seems to work well enough.
+  print(knitr::kable(list(tmp[c(2:4, 5:18, 19:23), ], tmp[c(24:38), ]), col.names = NULL))
+
+
+  grid.arrange(params$my_qqplot[[i]], params$my_qqplotlog[[i]], params$my_boxplot[[i]], params$my_hist[[i]], ncol=2,
+             heights=unit(c(47,47), c("mm", "mm")))
+  cat("\n\\newpage\n")
+}
+```
