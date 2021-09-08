@@ -3,6 +3,14 @@ output:
   html_document: default
   pdf_document: default
 ---
+<style>
+.basic-styling td,
+.basic-styling th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+}
+</style>
+
 
 # Trend Analysis: Mann Kendall
 The trend component of Open UCL is still in development. This version works but we are not sure if we have worked out all the bugs. If you find any please let us know.  
@@ -28,16 +36,25 @@ id: is well or sample location identifier ed: MW1, MW2 etc
 Col 3 and onward contain the results. Each analyte name in the header lines must be preceded by the word analyte followed by a space and then the name of the analytes. The app looks for the word "analyte" to determine what to plot.
 
 Example file layout
+<div class="ox-hugo-table basic-styling">
+<div></div>
+<div class="table-caption">Example File Layout
+  <span class="table-number"></span>
+</div>
 
-|date       |id   |analyte benzene  |analyte ethylbenzene |analyte toluene  |analyte xylene |analyte TRH(F1)  |
-|:----------|-----|-----------------|---------------------|-----------------|---------------|-----------------|
-|1/08/2011  |MW1  |1435             |0                    |0                |0              |0                |
-|1/02/2013  |MW1  |1234             |3.7                  | 3.7             | 2             | 2.5             |
-|1/09/2013  |MW1  |1456             |0.13                 |0.13             |0.11           |0.01             |
-|1/12/2013  |MW1  |1055             |0.1                  |0.1              | 0.03          |0                |
-|1/02/2014  |MW1   | 908            | 3.2                 | 3.2              | 1.6          | 0.58            |
-|1/03/2014  |MW1  | 1456            |4.1                  | 4.1             | 1.9           | 1.5             |
-|1/06/2014  |MW1  | 904             | 2.2                 | 2.2             | 1.8           | 0.61            |
+</div>
+
+|date        |   |id  |   |analyte benzene |   |analyte ethylbenzene |analyte toluene  |analyte xylene |analyte TRH(F1)  |
+|:----------|:-:|:--|:-:|:---------------|:-:|:---------------------|:-----------------|:---------------|:-----------------|
+|1/08/2011   |   |MW1 |   |1435            | |0                    |0                |0              |0                |
+|1/02/2013   |   |MW1 |   |1234            | |3.7                  | 3.7             | 2             | 2.5             |
+|1/09/2013   |   |MW1 |   |1456            | |0.13                 |0.13             |0.11           |0.01             |
+|1/12/2013   |   |MW1 |   |1055            | |0.1                  |0.1              | 0.03          |0                |
+|1/02/2014   |   |MW1 |   | 908            | | 3.2                 | 3.2              | 1.6          | 0.58            |
+|1/03/2014   |   |MW1 |   | 1456           | |4.1                  | 4.1             | 1.9           | 1.5             |
+|1/06/2014   |   |MW1 |   | 904            | | 2.2                 | 2.2             | 1.8           | 0.61            |
+
+</div>
 
 ## Interpreting the Results.
 The Mann Kendall Trend Test (sometimes called the M-K test) is used to analyze data collected over time for consistently increasing or decreasing trends (monotonic).
@@ -46,7 +63,8 @@ It is a non-parametric test, which means it works for all distributions (i.e. yo
 
 The test can be used to find trends for as few as four samples. However, with only a few data points, the test has a high probability of not finding a trend when one would be present if more points were provided. The more data points you have the more likely the test is going to find a true trend (as opposed to one found by chance). The minimum number of recommended measurements is probably somewhere between 8 and 10.
 
-The Mann-Kendall Trend Test analyzes difference in signs of the difference between earlier and later data points but does not consider the magnitude of the differences. The idea is that if a trend is present, the sign values will tend to increase constantly, or decrease constantly. Every value is compared to every value preceding it in the time series, which gives a total of $$ \frac{n(n – 1)}{2} $$ pairs of data, where “n” is the number of observations in the set.
+The Mann-Kendall Trend Test analyzes difference in signs of the difference between earlier and later data points but does not consider the magnitude of the differences. The idea is that if a trend is present, the sign values will tend to increase constantly, or decrease constantly. Every value is compared to every value preceding it in the time series, which gives a total of $\frac{n(n – 1)}{2}$ pairs of data, where “n” is the number of observations in the set.
+
 
 **Assumptions  **
 
@@ -74,7 +92,7 @@ IF S <  0 and p <0.1 "POSSIBLY DECREASING".
 
 IF S >  0 AND p >0.1 "NO CLEAR TREND".
 
-IF S <= 0 AND p >0.1 and cov >= 1 "NO CLEAR TREND".
+IF S <= 0 AND p >0.1 and CV >= 1 "NO CLEAR TREND".
 
 IF p > 0.1 and CV < 1 "STABLE".
 
@@ -83,16 +101,37 @@ IF p > 0.1 and CV < 1 "STABLE".
 #### n - Number of samples
 Displays the number of valid sample entries identified for an analyte in the data set. This number is critical to the determination of most of the other statistical parameters. It is **strongly recommended** to cross-check with your data set to make sure that the expected number of samples have been identified. If there is a mismatch, it may be worth checking for stray non-numerical characters in your data file. We allowed for the data to be viewed on the bottom left of the summary screen to help with this verification.
 
+#### S - the Mann-kendall statistic
+
+This Mann-Kendall analysis relies on determining the difference between each pair of distinct data points in the set and assigning a value of zero, +1 (where the later value is greater than the earlier value) or -1 (where the later value is less than the earlier value). The S value is the sum of these assigned values. Where this value is zero, there is no overall trend. Where the number is positive, there is an overall upwards trend (tendency to increase values over time). Where the number is negative, there is an overall downwards trend (tendency to decrease values over time).
+
+$$ S = \sum_{k=1}^{n-1} \sum_{j=k+1}^{n} sgn (X_j - X_k )$$
+
+where _sgn_ is equal to
+
+$$ sgn(x) =  \left[\begin{array}{cc}
+1, {\tt if } x > 0\\
+0, {\tt if } x = 0\\
+-1, {\tt if } x < 0
+\end{array}\right] $$
+
+#### varS - the variance of S
+
+Defined as:
+$$ \sigma^2 = \frac { n(n-1)(2n+5) - \sum_{j=1}^{p} t_j (t_j - 1)(2t_j +5) }{18}
+$$
+where
+_p_ is the number of tied groups, and t<sub>j</sub> is the number of points in each group j.
+
+#### tau
+Kendall's tau is a measure of correlation between two columns of ranked data. Where C is the number of concordant pairs, and D is the number of discordant pairs, Tau ($\tau$) is calculated as:
+
+$$ \tau = \frac{C-D}{C+D} $$
+
 #### z - critical z value
 
 #### p - the p-value
 Expresses the statistical confidence of the identified trend. A smaller number indicates greater certainty.
-
-#### S - the Mann-kendall statistic
-
-#### varS
-
-#### tau
 
 #### Mean
 Numerical average of the provided data set, commonly taken to be a representative value of the overall data set. The mean is prone to distortion due to the effects of small numbers of extreme values.

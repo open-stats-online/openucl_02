@@ -191,6 +191,13 @@ summary {
 </div>
 
 
+<style>
+.basic-styling td,
+.basic-styling th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+}
+</style>
 <div id="trend-analysis-mann-kendall" class="section level1">
 <h1>Trend Analysis: Mann Kendall</h1>
 <p>The trend component of Open UCL is still in development. This version works but we are not sure if we have worked out all the bugs. If you find any please let us know.</p>
@@ -203,101 +210,137 @@ summary {
 <p>Col 1 date: must be entered as dd/mm/yyyy format</p>
 <p>Col 2 id: is well or sample location identifier ed: MW1, MW2 etc</p>
 <p>Col 3 and onward contain the results. Each analyte name in the header lines must be preceded by the word analyte followed by a space and then the name of the analytes. The app looks for the word “analyte” to determine what to plot.</p>
-<p>Example file layout</p>
+Example file layout
+<div class="ox-hugo-table basic-styling">
+<div>
+
+</div>
+<div class="table-caption">
+<p>Example File Layout <span class="table-number"></span></p>
+</div>
+</div>
 <table>
 <colgroup>
-<col width="10%" />
-<col width="4%" />
-<col width="16%" />
-<col width="20%" />
-<col width="16%" />
+<col width="9%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
 <col width="14%" />
-<col width="16%" />
+<col width="2%" />
+<col width="19%" />
+<col width="15%" />
+<col width="14%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">date</th>
-<th>id</th>
-<th>analyte benzene</th>
-<th>analyte ethylbenzene</th>
-<th>analyte toluene</th>
-<th>analyte xylene</th>
-<th>analyte TRH(F1)</th>
+<th align="center"></th>
+<th align="left">id</th>
+<th align="center"></th>
+<th align="left">analyte benzene</th>
+<th align="center"></th>
+<th align="left">analyte ethylbenzene</th>
+<th align="left">analyte toluene</th>
+<th align="left">analyte xylene</th>
+<th align="left">analyte TRH(F1)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">1/08/2011</td>
-<td>MW1</td>
-<td>1435</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">1435</td>
+<td align="center"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
 </tr>
 <tr class="even">
 <td align="left">1/02/2013</td>
-<td>MW1</td>
-<td>1234</td>
-<td>3.7</td>
-<td>3.7</td>
-<td>2</td>
-<td>2.5</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">1234</td>
+<td align="center"></td>
+<td align="left">3.7</td>
+<td align="left">3.7</td>
+<td align="left">2</td>
+<td align="left">2.5</td>
 </tr>
 <tr class="odd">
 <td align="left">1/09/2013</td>
-<td>MW1</td>
-<td>1456</td>
-<td>0.13</td>
-<td>0.13</td>
-<td>0.11</td>
-<td>0.01</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">1456</td>
+<td align="center"></td>
+<td align="left">0.13</td>
+<td align="left">0.13</td>
+<td align="left">0.11</td>
+<td align="left">0.01</td>
 </tr>
 <tr class="even">
 <td align="left">1/12/2013</td>
-<td>MW1</td>
-<td>1055</td>
-<td>0.1</td>
-<td>0.1</td>
-<td>0.03</td>
-<td>0</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">1055</td>
+<td align="center"></td>
+<td align="left">0.1</td>
+<td align="left">0.1</td>
+<td align="left">0.03</td>
+<td align="left">0</td>
 </tr>
 <tr class="odd">
 <td align="left">1/02/2014</td>
-<td>MW1</td>
-<td>908</td>
-<td>3.2</td>
-<td>3.2</td>
-<td>1.6</td>
-<td>0.58</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">908</td>
+<td align="center"></td>
+<td align="left">3.2</td>
+<td align="left">3.2</td>
+<td align="left">1.6</td>
+<td align="left">0.58</td>
 </tr>
 <tr class="even">
 <td align="left">1/03/2014</td>
-<td>MW1</td>
-<td>1456</td>
-<td>4.1</td>
-<td>4.1</td>
-<td>1.9</td>
-<td>1.5</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">1456</td>
+<td align="center"></td>
+<td align="left">4.1</td>
+<td align="left">4.1</td>
+<td align="left">1.9</td>
+<td align="left">1.5</td>
 </tr>
 <tr class="odd">
 <td align="left">1/06/2014</td>
-<td>MW1</td>
-<td>904</td>
-<td>2.2</td>
-<td>2.2</td>
-<td>1.8</td>
-<td>0.61</td>
+<td align="center"></td>
+<td align="left">MW1</td>
+<td align="center"></td>
+<td align="left">904</td>
+<td align="center"></td>
+<td align="left">2.2</td>
+<td align="left">2.2</td>
+<td align="left">1.8</td>
+<td align="left">0.61</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div id="interpreting-the-results." class="section level2">
 <h2>Interpreting the Results.</h2>
 <p>The Mann Kendall Trend Test (sometimes called the M-K test) is used to analyze data collected over time for consistently increasing or decreasing trends (monotonic).</p>
 <p>It is a non-parametric test, which means it works for all distributions (i.e. your data doesn’t have to meet the assumption of normality), but your data should have no serial correlation.</p>
 <p>The test can be used to find trends for as few as four samples. However, with only a few data points, the test has a high probability of not finding a trend when one would be present if more points were provided. The more data points you have the more likely the test is going to find a true trend (as opposed to one found by chance). The minimum number of recommended measurements is probably somewhere between 8 and 10.</p>
-<p>The Mann-Kendall Trend Test analyzes difference in signs of the difference between earlier and later data points but does not consider the magnitude of the differences. The idea is that if a trend is present, the sign values will tend to increase constantly, or decrease constantly. Every value is compared to every value preceding it in the time series, which gives a total of <span class="math display">\[ \frac{n(n – 1)}{2} \]</span> pairs of data, where “n” is the number of observations in the set.</p>
+<p>The Mann-Kendall Trend Test analyzes difference in signs of the difference between earlier and later data points but does not consider the magnitude of the differences. The idea is that if a trend is present, the sign values will tend to increase constantly, or decrease constantly. Every value is compared to every value preceding it in the time series, which gives a total of <span class="math inline">\(\frac{n(n – 1)}{2}\)</span> pairs of data, where “n” is the number of observations in the set.</p>
 <p><strong>Assumptions </strong></p>
 <ol style="list-style-type: decimal">
 <li>Your data isn’t collected seasonally (e.g. only during the summer and winter months), because the test won’t work if alternating upward and downward trends exist in the data. Another test—the Seasonal Kendall Test—is generally used for seasonally collected data. We can consider implementing this if there is sufficient demand.</li>
@@ -316,7 +359,7 @@ summary {
 <p>IF S &gt; 0 and p &lt;0.1 “POSSIBLY INCREASING”.</p>
 <p>IF S &lt; 0 and p &lt;0.1 “POSSIBLY DECREASING”.</p>
 <p>IF S &gt; 0 AND p &gt;0.1 “NO CLEAR TREND”.</p>
-<p>IF S &lt;= 0 AND p &gt;0.1 and cov &gt;= 1 “NO CLEAR TREND”.</p>
+<p>IF S &lt;= 0 AND p &gt;0.1 and CV &gt;= 1 “NO CLEAR TREND”.</p>
 <p>IF p &gt; 0.1 and CV &lt; 1 “STABLE”.</p>
 <div id="the-statistical-summary" class="section level3">
 <h3>The Statistical Summary</h3>
@@ -324,21 +367,33 @@ summary {
 <h4>n - Number of samples</h4>
 <p>Displays the number of valid sample entries identified for an analyte in the data set. This number is critical to the determination of most of the other statistical parameters. It is <strong>strongly recommended</strong> to cross-check with your data set to make sure that the expected number of samples have been identified. If there is a mismatch, it may be worth checking for stray non-numerical characters in your data file. We allowed for the data to be viewed on the bottom left of the summary screen to help with this verification.</p>
 </div>
+<div id="s---the-mann-kendall-statistic" class="section level4">
+<h4>S - the Mann-kendall statistic</h4>
+<p>This Mann-Kendall analysis relies on determining the difference between each pair of distinct data points in the set and assigning a value of zero, +1 (where the later value is greater than the earlier value) or -1 (where the later value is less than the earlier value). The S value is the sum of these assigned values. Where this value is zero, there is no overall trend. Where the number is positive, there is an overall upwards trend (tendency to increase values over time). Where the number is negative, there is an overall downwards trend (tendency to decrease values over time).</p>
+<p><span class="math display">\[ S = \sum_{k=1}^{n-1} \sum_{j=k+1}^{n} sgn (X_j - X_k )\]</span></p>
+<p>where <em>sgn</em> is equal to</p>
+<p><span class="math display">\[ sgn(x) =  \left[\begin{array}{cc}
+1, {\tt if } x &gt; 0\\
+0, {\tt if } x = 0\\
+-1, {\tt if } x &lt; 0
+\end{array}\right] \]</span></p>
+</div>
+<div id="vars---the-variance-of-s" class="section level4">
+<h4>varS - the variance of S</h4>
+<p>Defined as: <span class="math display">\[ \sigma^2 = \frac { n(n-1)(2n+5) - \sum_{j=1}^{p} t_j (t_j - 1)(2t_j +5) }{18}
+\]</span> where <em>p</em> is the number of tied groups, and t<sub>j</sub> is the number of points in each group j.</p>
+</div>
+<div id="tau" class="section level4">
+<h4>tau</h4>
+<p>Kendall’s tau is a measure of correlation between two columns of ranked data. Where C is the number of concordant pairs, and D is the number of discordant pairs, Tau (<span class="math inline">\(\tau\)</span>) is calculated as:</p>
+<p><span class="math display">\[ \tau = \frac{C-D}{C+D} \]</span></p>
+</div>
 <div id="z---critical-z-value" class="section level4">
 <h4>z - critical z value</h4>
 </div>
 <div id="p---the-p-value" class="section level4">
 <h4>p - the p-value</h4>
 <p>Expresses the statistical confidence of the identified trend. A smaller number indicates greater certainty.</p>
-</div>
-<div id="s---the-mann-kendall-statistic" class="section level4">
-<h4>S - the Mann-kendall statistic</h4>
-</div>
-<div id="vars" class="section level4">
-<h4>varS</h4>
-</div>
-<div id="tau" class="section level4">
-<h4>tau</h4>
 </div>
 <div id="mean" class="section level4">
 <h4>Mean</h4>
