@@ -2,7 +2,7 @@
 **This is a Beta version of Open UCL, so some things may not work perfectly or may change without much notice as we make improvements**
 
 ## 1 Overview
-Open UCL is a free online tool developed to provide a concise statistical summary of analytical data sets for contaminated land assessment and remediation projects. However, Open UCL may be used for any data set. Open UCL is an open-source project. The code will be made available on a Github repository once out of testing, and Open UCL is at a reasonable level of development.
+Open UCL is a free online tool developed to provide a concise statistical summary of analytical data sets for contaminated land assessment and remediation projects. However, Open UCL may be used for any data set. Open UCL is an open-source project. The code is available on a <b><a href="https://github.com/open-stats-online/openucl_02/">Github repository</a></b>. You can use this repository to submit bug reports directly to us if you wish.
 
 Open UCL is a Web-based application using R and Shiny to enable platform-independent access. It has the advantage of not requiring a particular operating system, hardware, or other software. All you need is internet access, a browser and a spreadsheet. Currently, recognised data formats for spreadsheets are Microsoft Excel (.xls or .xlsx), Open Document (.ods) and Comma Separated Value (.csv) files. The output is presented on the screen or downloaded in Portable Document Format (.pdf), so a PDF reader is also useful.
 

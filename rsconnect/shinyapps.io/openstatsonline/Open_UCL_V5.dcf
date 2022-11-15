@@ -1,0 +1,13 @@
+name: Open_UCL_V5
+title: Open_UCL_V5
+username:
+account: openstatsonline
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7629123
+bundleId: 6515578
+url: https://openstatsonline.shinyapps.io/Open_UCL_V5/
+when: 1668506632.07586
+lastSyncTime: 1668506632.07588
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,6 +1,6 @@
 # OPEN UCL BETA
-# File and Version: Open_UCL_shinyapp_Ver_504.R File
-# Last Update:2 Sept 2021
+# File and Version: Open_UCL_shinyapp_Ver_505.R File
+# Last Update:15 Nov 2022
 # Open Source R code and Shiny App for calculation of basic stats and 95% UCL's
 # for the contaminated land matters.
 # Initial Development by Tim Chambers, Alex Mikov, Marc Salmon. (Society of OWLS)
@@ -29,6 +29,7 @@ library(knitr)
 library(pander)
 library(trend)
 library(lubridate)
+library(markdown)
 #library(kableExtra)
 
 # FUNCTIONS #########################################
@@ -381,7 +382,7 @@ shinyApp(
   ui = dashboardPage( # Call to the dashboard/UI section
     title="OpenUCL",
     dashboardHeader(
-      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> Ver 5.03")  #include logo in header
+      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> Ver 5.05")  #include logo in header
     ),
     sidebar,
     body
@@ -391,7 +392,7 @@ shinyApp(
     # Keep an eye on the input fields and update if they change. Set to null at the beginning
     values <- reactiveValues(df_data = NULL, df_data_trend = NULL)
 
-    #######TREND ANAlYSIS TAB##########
+    #######TREND ANALYSIS TAB##########
 
     # Read in the uploaded data file from trend analysis tab
     observeEvent(input$file1_trend, {
@@ -502,16 +503,27 @@ shinyApp(
                   sd = sd(result),
                   cov = sd/mean, 
                   results = case_when(S >  0 & p < 0.05 ~ "INCREASING",
-                                      S <  0 & p < 0.05 ~ "DECREASING",
-                                      S >  0 & p < 0.1 ~ "POSSIBLY INCREASING",
-                                      S <  0 & p < 0.1 ~ "POSSIBLY DECREASING",
-                                      S >  0 & p > 0.1 ~ "NO CLEAR TREND",
-                                      S <= 0 & p >0.1 & cov >= 1 ~"NO CLEAR TREND",
-                                      p > 0.1 & cov < 1 ~ "STABLE")) %>%
+                                      S <  0 & p < 0.05              ~ "DECREASING",
+                                      S >  0 & p < 2*0.05            ~ "PROBABLY INCREASING",
+                                      S <  0 & p < 2*0.05            ~ "PROBABLY DECREASING",
+                                      S >  0 & p > 2*0.05            ~ "NO CLEAR TREND",
+                                      S <= 0 & p > 2*0.05 & cov >= 1 ~ "NO CLEAR TREND",
+                                      S <= 0 & p > 2*0.05 & cov < 1  ~ "STABLE",
+                                      S == 0 & p < 0.05              ~ "STABLE Case not coverd by Azziz et. al.",               # This case is not captured by Aziz et.al.
+                                      S == 0 & p < 2*0.05            ~ "NO CLEAR TREND Case not coverd by Azziz et. al.",       # This case is not captured by Aziz et.al.
+                                      S == 0 & is.nan(p)             ~ "STABLE",               # Catches the situation where all measurements are identical and p is an invalid calculation (NaN)  
+                                      TRUE ~ "LOGIC ERROR")) %>%
+                                      
+                                     # S <  0 & p < 0.05 ~ "DECREASING",
+                                     # S >  0 & p < 0.1 ~ "POSSIBLY INCREASING",
+                                     # S <  0 & p < 0.1 ~ "POSSIBLY DECREASING",
+                                     # S >  0 & p > 0.1 ~ "NO CLEAR TREND",
+                                     # S <= 0 & p >0.1 & cov >= 1 ~"NO CLEAR TREND",
+                                     # p > 0.1 & cov < 1 ~ "STABLE",)) %>%
         select(-model) -> values$KTT
       
 
-
+      # RETIRED SECTION OF TREND FOR SEASONAL DATA. DECIDED NOT TO DO ALLOW SEASONAL CALCULATION.
       # values$df_l_trend %>%
       #   group_by(id, analyte) %>%
       #   summarise(kendal_data = list(kendallTrendTest(result ~ sampdate,
@@ -591,6 +603,7 @@ shinyApp(
       values$display_KTT <- values$KTT %>%
         filter(id == input$id_trend & analyte == input$analyte_trend) %>%
         select(-id, -analyte)
+      # RETIRED CODE FOR SEASONAL TRENDS
       # values$display_KSTT <- values$KSTT %>%
       #   filter(id == input$id_trend & analyte == input$analyte_trend) %>%
       #   select(-id, -analyte)
@@ -662,10 +675,12 @@ shinyApp(
 
         if(input$report_trend == 'current') {
           KTT_data <- values$KTT %>% filter(id == input$id_trend & analyte == input$analyte_trend)
+          # RETIRED CODE FOR SEASONAL TRENDS
           #KSTT_data <- values$KSTT %>% filter(id == input$id_trend & analyte == input$analyte_trend)
           plot_data <- values$plot_data %>% filter(id == input$id_trend & analyte == input$analyte_trend)
         } else {
           KTT_data <- values$KTT
+          # RETIRED CODE FOR SEASONAL TRENDS
           #KSTT_data <- values$KSTT
           plot_data <- values$plot_data
         }
@@ -674,6 +689,7 @@ shinyApp(
         params <- list(
           type = input$report_trend,
           KTT_data = KTT_data,
+          # RETIRED CODE FOR SEASONAL TRENDS
           #KSTT_data = KSTT_data,
           plot_data = plot_data,
           title = input$title_trend,
@@ -713,6 +729,7 @@ shinyApp(
       )
     })
 
+    # RETIRED CODE FOR SEASONAL TRENDS
     # output$column2_trend <- renderText({
     #   req(values$display_KSTT)
     #   names <- names(values$display_KSTT)

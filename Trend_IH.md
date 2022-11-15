@@ -76,25 +76,24 @@ The Mann-Kendall Trend Test analyzes difference in signs of the difference betwe
 **Automated Trend Interpretation**
 
 An interpretation of the results is provided using the MAROS: Decision support system for Optimising Monitoring Plans, J.J. Aziz, M. Ling,
-H.S. Rifai, C.J. Newell and J.R. Gonzales. Groundwater , 41(3): 355-367, 2003. The structure of this interpretation is shown below.
+H.S. Rifai, C.J. Newell and J.R. Gonzales. Groundwater , 41(3): 355-367, 2003. The structure of this interpretation is shown below. 
+
+We have after review of Azizz et.al. decided to add to scenarios that are not covered by Azizz et.al These are highlighted and noted in the text below along with a "Catch All" STABLE group for those situations where all measurments are identical and below detection limit.
 
 _As always, you should use your own judgement based on graphical interpretation as well as the numerical assessment before relying on any trend interpretation._
 
 Where S is the Mann-Kendall statistic, p is the p-value associated with S and CV is the coefficient of variation:
 
-IF S >  0 and p <0.05 "INCREASING".
-
-IF S <  0 and p <0.05 "DECREASING".
-
-IF S >  0 and p <0.1 "POSSIBLY INCREASING".
-
-IF S <  0 and p <0.1 "POSSIBLY DECREASING".
-
-IF S >  0 AND p >0.1 "NO CLEAR TREND".
-
-IF S <= 0 AND p >0.1 and CV >= 1 "NO CLEAR TREND".
-
-IF p > 0.1 and CV < 1 "STABLE".
+S >  0 & p < 0.05              ~ "INCREASING",  
+S <  0 & p < 0.05              ~ "DECREASING",  
+S >  0 & p < 2*0.05            ~ "PROBABLY INCREASING",  
+S <  0 & p < 2*0.05            ~ "PROBABLY DECREASING",  
+S >  0 & p > 2*0.05            ~ "NO CLEAR TREND",  
+S <= 0 & p > 2*0.05 & cov >= 1 ~ "NO CLEAR TREND",  
+S <= 0 & p > 2*0.05 & cov < 1  ~ "STABLE",  
+S == 0 & p < 0.05              ~ "STABLE Case not coverd by Azziz et. al.",  
+S == 0 & p < 2*0.05            ~ "NO CLEAR TREND Case not coverd by Azziz et. al.",  
+S == 0 & is.nan(p)             ~ "STABLE", Catches the situation where all measurements are identical   
 
 ### The Statistical Summary
 
