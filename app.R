@@ -1,5 +1,5 @@
 # OPEN UCL BETA
-# File and Version: Open_UCL_shinyapp_Ver_505.R File
+# File and Version: Open_UCL_shinyapp_Ver_506.R File
 # Last Update:15 Nov 2022
 # Open Source R code and Shiny App for calculation of basic stats and 95% UCL's
 # for the contaminated land matters.
@@ -382,7 +382,7 @@ shinyApp(
   ui = dashboardPage( # Call to the dashboard/UI section
     title="OpenUCL",
     dashboardHeader(
-      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> Ver 5.05")  #include logo in header
+      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> V5.06 15 Nov 22")  #include logo in header
     ),
     sidebar,
     body
@@ -509,8 +509,8 @@ shinyApp(
                                       S >  0 & p > 2*0.05            ~ "NO CLEAR TREND",
                                       S <= 0 & p > 2*0.05 & cov >= 1 ~ "NO CLEAR TREND",
                                       S <= 0 & p > 2*0.05 & cov < 1  ~ "STABLE",
-                                      S == 0 & p < 0.05              ~ "STABLE Case not coverd by Azziz et. al.",               # This case is not captured by Aziz et.al.
-                                      S == 0 & p < 2*0.05            ~ "NO CLEAR TREND Case not coverd by Azziz et. al.",       # This case is not captured by Aziz et.al.
+                                      S == 0 & p < 0.05              ~ "STABLE Case not coverd by Azziz et.al.",               # This case is not captured by Aziz et.al.
+                                      S == 0 & p < 2*0.05            ~ "NO CLEAR TREND Case not coverd by Azziz et.al.",       # This case is not captured by Aziz et.al.
                                       S == 0 & is.nan(p)             ~ "STABLE",               # Catches the situation where all measurements are identical and p is an invalid calculation (NaN)  
                                       TRUE ~ "LOGIC ERROR")) %>%
                                       
