@@ -1,6 +1,6 @@
 # OPEN UCL BETA
-# File and Version: Open_UCL_shinyapp_Ver_506.R File
-# Last Update:15 Nov 2022
+# File and Version: Open_UCL_shinyapp_Ver_507.R File
+# Last Update:25 Nov 2022
 # Open Source R code and Shiny App for calculation of basic stats and 95% UCL's
 # for the contaminated land matters.
 # Initial Development by Tim Chambers, Alex Mikov, Marc Salmon. (Society of OWLS)
@@ -382,7 +382,7 @@ shinyApp(
   ui = dashboardPage( # Call to the dashboard/UI section
     title="OpenUCL",
     dashboardHeader(
-      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> V5.06 15 Nov 22")  #include logo in header
+      title = HTML("<img src='OpenUCL.png' height='50px' align='left'> V5.07 25 Nov 22")  #include logo in header
     ),
     sidebar,
     body
@@ -958,11 +958,11 @@ shinyApp(
           `Normality Log Data` = ifelse(`Shapiro-Wilks p (log)` <= 0.05, "FALSE", "TRUE"),
           `Critical t (95%) 2 Sided` = round(((qt(1-(0.05/2), n-1))),5),
           `Margin of Error (MoE)` = round((`Critical t (95%) 2 Sided` * `standard error of mean (sem)`),5),
-          `Z` = round((qnorm(0.05, mean = mean, sd = `standard deviation (sd)`, lower.tail = FALSE)),5),
+          `z score (max value)` = (max - mean)/`standard deviation (sd)`, #round((qnorm(0.05, mean = mean, sd = `standard deviation (sd)`, lower.tail = FALSE)),5),
           `Max Probable Error (MPE%)` = round(((`Margin of Error (MoE)`/mean)*100),5),
           `Relative Standard Deviation (%RSD)` = (100*`standard deviation (sd)`)/abs(mean),
           empty_cell1 = '',
-          empty_cell2 = '',
+          empty_cell2 = '', 
           empty_cell3 = ''
         ) %>%
 
